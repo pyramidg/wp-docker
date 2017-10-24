@@ -1,2 +1,1 @@
-# wp-docker
-wordpress blog using docker compose
+# docker-wordpress-workflow-demo
