@@ -1,27 +1,37 @@
-version: '3'
-
+version: '2'
 services:
-   db:
-     image: mysql:5.7
-     volumes:
-       - db_data:/var/lib/mysql
-     restart: always
-     environment:
-       MYSQL_ROOT_PASSWORD: somewordpress
-       MYSQL_DATABASE: wordpress
-       MYSQL_USER: wordpress
-       MYSQL_PASSWORD: wordpress
-
-   wordpress:
-     depends_on:
-       - db
-     image: wordpress:latest
-     ports:
-       - "8000:80"
-     restart: always
-     environment:
-       WORDPRESS_DB_HOST: db:3306
-       WORDPRESS_DB_USER: wordpress
-       WORDPRESS_DB_PASSWORD: wordpress
+  wordpress:
+    image: wordpress:latest
+    networks:
+      - front
+      - back
+    ports:
+      - 45.55.197.233:80:80
+    environment:
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: wpdb
+      WORDPRESS_TABLE_PREFIX: wp_
+      WORDPRESS_DB_HOST: wordpress_db
+    volumes:
+      - ./wordpress-data:/var/www/html
+      - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+  wordpress_db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: examplepass
+    volumes:
+      - wordpress-db-data:/var/lib/mysql
+    networks:
+      - back
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    networks:
+      - back
+    ports:
+      - 8181:80
 volumes:
-    db_data:
+    wordpress-db-data:
+      driver: local
+networks:
+  front:
+  back:
