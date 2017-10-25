@@ -6,7 +6,7 @@ services:
       - front
       - back
     ports:
-      - 45.55.197.233:80:80
+      - 80:80
     environment:
       WORDPRESS_DB_PASSWORD: examplepass
       WORDPRESS_DB_NAME: wpdb
