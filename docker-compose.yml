@@ -9,7 +9,7 @@ services:
      environment:
        MYSQL_ROOT_PASSWORD: somewordpress
        MYSQL_DATABASE: wordpress
-       MYSQL_USER: wordpress
+       MYSQL_USER: admin
        MYSQL_PASSWORD: wordpress
 
    wordpress:
